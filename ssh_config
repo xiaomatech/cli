@@ -1,0 +1,17 @@
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+
+Host *
+	StrictHostKeyChecking no
+    CheckHostIp no
+    #PasswordAuthentication no
+
+    Compression yes
+    KeepAlive yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 5
+    ControlMaster auto
+    ControlPath ~/.ssh/sockets_%r@%h-%p
+    ControlPersist 3600h
+
+	GSSAPIAuthentication yes
