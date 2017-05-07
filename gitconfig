@@ -1,5 +1,11 @@
+[user]
+  email = xianhuawei.zhcn@qq.comm
+  name = xianhuawei
 [color]
     ui = true
+[difftool "sourcetree"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path =
 [color "branch"]
     current = yellow reverse
     local = yellow
@@ -12,12 +18,17 @@
 [alias]
     s = status
     ss = status -s
-
-    # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+    co = checkout
+    ci = commit -a
+    st = status
+    br = branch
+    psm = push origin master
+    plm = pull origin master
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    gp = pull --rebase origin develop
     snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
     snapshots = !git stash list --grep snapshot
 
-    #via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
     recent-branches = !git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'
 
     # branch
@@ -92,10 +103,12 @@
     # 'git push' will push the current branch to its tracking branch
     # the usual default is to push all branches
     default = upstream
+    
 [core]
+    excludesfile = ~/.gitignore_global
     autocrlf = false
     editor = vim
-	quotepath = false # 解决git status中文乱码
+    quotepath = false # 解决git status中文乱码
 [advice]
     statusHints = true
 [diff]
@@ -105,7 +118,26 @@
     algorithm = patience
 [rerere]
     # Remember my merges
-    # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
     enabled = true
 [include]
     #path = .gitconfig.user
+
+[difftool "vim"]
+    cmd = vim \"$MERGED\"
+    prompt = false
+
+[push]
+   default = tracking
+
+[branch]
+   autosetupmerge = true
+
+[mergetool]
+    keepBackup = false
+    writeToTemp = true
+[commit]
+    verbose = true
+[status]
+    submodulesummary = true
+    relativePaths = true
+    showUntrackedFiles = no
